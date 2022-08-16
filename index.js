@@ -94,7 +94,7 @@ app.get('/refresh_token', (req, res) => {
     axios({
         method: 'post',
         url: 'https://accounts.spotify.com/api/token',
-        data: querystring.stringify({
+        data: queryString.stringify({
             grant_type: 'refresh_token',
             refresh_token: refresh_token
         }),
