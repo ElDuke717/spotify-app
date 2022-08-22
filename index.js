@@ -33,7 +33,12 @@ app.get('/login', (req, res) => {
     // sets a cookie - with spotify_auth_state as the key and the random string as the value.
     res.cookie(stateKey, state);
     // Allows to access the details about the account user is logged in as.
-    const scope = 'user-read-private user-read-email';
+    const scope = [
+        'user-read-private',
+        'user-read-email',
+        'user-top-read',
+    ].join(' ');
+
     const queryParams = queryString.stringify({
         client_id: CLIENT_ID,
         response_type: 'code',
@@ -65,13 +70,11 @@ app.get('/callback', (req, res) => {
         .then(response => {
             if (response.status === 200) {
 
-                const { access_token, refresh_token, expires_in } = response.data;
-
+                const { access_token, refresh_token } = response.data;
 
                 const queryParams = queryString.stringify({
                     access_token,
                     refresh_token,
-                    expires_in,
                 });
 
                 // redirect to react app
