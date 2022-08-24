@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { catchErrors } from '../utils'
 import { getPlaylistById, getAudioFeaturesForTracks } from '../spotify';
-import { TrackList, SectionWrapper } from '../components';
+import { TrackList, SectionWrapper, Loader } from '../components';
 import { StyledHeader, StyledDropdown } from '../styles';
 
 const Playlist = () => {
@@ -13,7 +13,7 @@ const Playlist = () => {
     const [tracks, setTracks] = useState(null);
     const [audioFeatures, setAudioFeatures] = useState(null);
     const [sortValue, setSortValue] = useState('');
-    const sortOptions = ['danceability', 'tempo', 'energy'];
+    const sortOptions = ['speechiness', 'tempo', 'energy', 'danceability', 'loudness', 'valence'];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -104,7 +104,7 @@ const Playlist = () => {
 
     return (
         <>
-            {playlist && (
+            {playlist ? (
                 <>
                     <StyledHeader>
                         <div className="header__inner">
@@ -147,6 +147,8 @@ const Playlist = () => {
                         </SectionWrapper>
                     </main>
                 </>
+            ) : (
+                <Loader />
             )}
         </>
     )

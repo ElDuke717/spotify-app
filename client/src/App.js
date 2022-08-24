@@ -44,38 +44,39 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <GlobalStyle />
-      <header className="App-header">
-        {!token ? (
-          <Login />
-        ) : (
-          <>
-            <StyledLogoutButton onClick={logout}>Log Out</StyledLogoutButton>
-            <Router>
-              <Switch>
-                <Route path="/top-artists">
-                  <TopArtists />
-                </Route>
-                <Route path="/top-tracks">
-                  <TopTracks />
-                </Route>
-                <Route path="/playlists/:id">
-                  <Playlist />
-                </Route>
-                <Route path="/playlists">
-                  <Playlists />
-                </Route>
-                <Route path="/">
-                  <Profile />
-                </Route>
-              </Switch>
-            </Router>
-          </>
-        )}
-      </header>
+
+      {!token ? (
+        <Login />
+      ) : (
+        <>
+          <StyledLogoutButton onClick={logout}>Log Out</StyledLogoutButton>
+
+          <Router>
+
+            <Switch>
+              <Route path="/top-artists">
+                <TopArtists />
+              </Route>
+              <Route path="/top-tracks">
+                <TopTracks />
+              </Route>
+              <Route path="/playlists/:id">
+                <Playlist />
+              </Route>
+              <Route path="/playlists">
+                <Playlists />
+              </Route>
+              <Route path="/">
+                <Profile />
+              </Route>
+            </Switch>
+          </Router>
+        </>
+      )}
     </div>
-  )
+  );
 }
 
 export default App;

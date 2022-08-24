@@ -8,7 +8,7 @@ const SectionWrapper = ({ children, title, seeAllLink, breadcrumb }) => (
                 <h2 className="section__heading">
                     {breadcrumb && (
                         <span className="section__breadcrumb">
-                            <Link to="/">Profile</Link>
+                            <Link to="/" onClick={() => window.location.reload(false)}>Profile</Link>
                         </span>
                     )}
                     {title && (
@@ -22,7 +22,7 @@ const SectionWrapper = ({ children, title, seeAllLink, breadcrumb }) => (
                     )}
                 </h2>
                 {seeAllLink && (
-                    <Link to={seeAllLink} className="section__see-all">See All</Link>
+                    <Link to={seeAllLink} className="section__see-all" >See All</Link>
                 )}
             </div>
 

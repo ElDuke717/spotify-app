@@ -33,6 +33,12 @@ const StyledDropdown = styled.div`
     font-family: inherit;
     padding: var(--spacing-xs) var(--spacing-xl) var(--spacing-xs) var(--spacing-sm);
   }
+
+  #order-select{
+
+    background-color: var(--dark-grey);
+
+}
 `;
 
 export default StyledDropdown;
