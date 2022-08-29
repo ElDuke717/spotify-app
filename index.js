@@ -3,12 +3,19 @@ const express = require('express');
 //querystring is used to add the required params to the authorization url
 const queryString = require('query-string');
 const app = express();
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, './client/build')));
 const axios = require('axios');
-const port = 8888;
+const path = require('path');
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const FRONTEND_URI = process.env.FRONTEND_URI;
+const PORT = process.env.PORT || 8888;
+
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 /**
  * Generates a random string containing numbers and letters
@@ -78,7 +85,7 @@ app.get('/callback', (req, res) => {
                 });
 
                 // redirect to react app
-                res.redirect(`http://localhost:3000/callback?${queryParams}`);
+                res.redirect(`${FRONTEND_URI}/?${queryParams}`);
                 // pass along tokens and query params
 
             } else {
@@ -116,6 +123,11 @@ app.get('/refresh_token', (req, res) => {
         });
 })
 
-app.listen(port, () => {
-    console.log('Express server is running on port: ' + port);
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Express app listening at http://localhost:${PORT}`);
 });
