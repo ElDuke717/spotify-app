@@ -1,10 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 //querystring is used to add the required params to the authorization url
+
 const queryString = require('query-string');
 const app = express();
-// Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, './client/build')));
 const axios = require('axios');
 const path = require('path');
 
